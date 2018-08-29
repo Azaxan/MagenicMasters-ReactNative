@@ -1,13 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
 
-export default class FirstScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Welcome',
-  }
+export default class Greetings extends React.Component {
   render() {
-    var {params} = this.props.navigation.state;
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text   
@@ -16,7 +11,7 @@ export default class FirstScreen extends React.Component {
             fontSize: 30,
             color: "blue"
             }
-          }>Hello {params.name}!</Text>
+          }>Hello ELTHER!</Text>
       </View>
     );
   }
