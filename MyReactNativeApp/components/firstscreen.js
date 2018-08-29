@@ -36,10 +36,9 @@ export default class FirstScreen extends React.Component {
            />
         <Button
           onPress={
-            () => navigate("Second",{name:"Elther"})
+            () => navigate("Second",{name: this.state.inputName})
           }
           title = "Show Greetings" />
-
       </View>
     );
   }
