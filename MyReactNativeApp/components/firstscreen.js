@@ -1,45 +1,110 @@
-import React from 'react';
-import { AppRegistry, Button, View, Text, TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class FirstScreen extends React.Component {
   static navigationOptions = {
-    title: 'Greetings',
+    title: 'User List',
   }
   constructor(props){
     super(props);
     this.state = {
-      inputName: "",
-      isShowGreetings: false
+      users:[]
     }
   }
-  handleTextInput = (input) => {
-    this.setState({inputName: input});
+
+  componentDidMount(){
+    this.populateData();
   }
-  setVisibility = () => {
-    this.setState({isShowGreetings: true});
+  populateData(){
+    this.setState({
+      users:[
+        {
+          "name": "Elther Barrientos",
+          "email": "eltherb@magenic.com"
+        },
+        {
+            "name": "Ronyan Flores",
+            "email": "ronyanf@magenic.com"
+        },
+        {
+            "name": "Siena Mamaril",
+            "email": "sienam@magenic.com"
+        },
+        {
+            "name": "Rhoderick Bocobo",
+            "email": "rhoderickb@magenic.com"
+        },
+        {
+          "name": "Elther Barrientos II",
+          "email": "eltherb@magenicII.com"
+        },
+        {
+            "name": "Ronyan Flores II",
+            "email": "ronyanf@magenicII.com"
+        },
+        {
+            "name": "Siena Mamaril II",
+            "email": "sienam@magenicII.com"
+        },
+        {
+            "name": "Rhoderick Bocobo II",
+            "email": "rhoderickb@magenicII.com"
+        }
+      ]
+    });
   }
   render() {
     var {navigate} = this.props.navigation;
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <TextInput
-          style = {
-            {
-            height: 50,
-            width:150,
-            fontSize: 20
-            }
+      <View style={styles.container} >
+          <FlatList
+          data={this.state.users}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) =>
+          <View style={styles.flatview}>
+          <TouchableOpacity
+              onPress={
+                () => navigate("Second",{name: item.name})
+              }          
+          >
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.email}>{item.email}</Text>
+          </TouchableOpacity>
+          </View>
           }
-          placeholder="Type your name here"
-          onChangeText={this.handleTextInput}
-           />
-        <Button
-          onPress={
-            () => navigate("Second",{name: this.state.inputName})
-          }
-          title = "Show Greetings" />
+          keyExtractor={item => item.email}
+        />
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  h2text: {
+    marginTop: 10,
+    fontFamily: 'Helvetica',
+    fontSize: 36,
+    fontWeight: 'bold',
+  },
+  flatview: {
+    justifyContent: 'center',
+    paddingTop: 30,
+    borderRadius: 2,
+  },
+  name: {
+    fontFamily: 'Verdana',
+    fontSize: 18
+  },
+  email: {
+    color: 'red'
+  }
+  
+});
