@@ -77,6 +77,13 @@ export default class FirstScreen extends React.Component {
             keyExtractor={item => item.agency.id}
           />
         </List>
+
+        <Button title="Take Picture" onPress={async () => {
+             this.setState({
+              data: JSON.parse('[]')
+          });
+        }}
+        ></Button>
       </View>
     );
   }
