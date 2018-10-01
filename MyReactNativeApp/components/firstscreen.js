@@ -11,7 +11,8 @@ export default class FirstScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      data:[]
+      data:[],
+      Mode: ''
     }
   }
 
@@ -22,14 +23,16 @@ export default class FirstScreen extends React.Component {
 
     var launchData = await LaunchService.getLaunchesAsync();
     this.setState({
-        data: launchData
+        data: launchData,
+        Mode:  await AsyncStorage.getItem('Mode')
     });
   }
 
   async populateDataCache() {
     var launchData = await LaunchService.getCachedLaunchesAsync();
     this.setState({
-        data: launchData
+        data: launchData,
+        Mode: await AsyncStorage.getItem('Mode')
     });
 }
 
@@ -49,6 +52,7 @@ export default class FirstScreen extends React.Component {
               data: JSON.parse('[]')
           });
         }}></Button>
+        <Text>Mode: {this.state.Mode}</Text>
         <List>
             <FlatList
             data={this.state.data}
